@@ -2,7 +2,7 @@
 pragma solidity ^0.8.17;
 
 
-contract Ludo {
+contract pseudoRandomLudo {
     mapping(address => uint) public playerPositions;
 
     mapping(address => uint) public playerStatus;
