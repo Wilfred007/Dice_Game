@@ -3,42 +3,29 @@ pragma solidity ^0.8.17;
 
 
 contract Ludo {
-    // Mapping of players to their current position on the board
     mapping(address => uint) public playerPositions;
 
-    // Mapping of players to their game status (0 - not started, 1 - in progress, 2 - finished)
     mapping(address => uint) public playerStatus;
 
-    // The number of players in the game
     uint public numPlayers;
 
-    // The current turn number
     uint public turnNumber;
 
-    // The seed for the pseudorandom generator
     uint public seed;
 
-    // Event emitted when a player rolls the dice
     event DiceRolled(address player, uint roll);
 
-    // Event emitted when a player moves on the board
     event PlayerMoved(address player, uint newPosition);
 
-    // Event emitted when a player finishes the game
     event GameFinished(address player);
 
-    // Constructor to initialize the game
     constructor() {
-        // Initialize the seed for the pseudorandom generator
         seed = block.timestamp;
     }
 
-    // Function to add a player to the game
     function joinGame() public {
-        // Check if the game is already full
         require(numPlayers < 4, "Game is already full");
 
-        // Add the player to the game
         playerPositions[msg.sender] = 0;
         playerStatus[msg.sender] = 1;
         numPlayers++;
@@ -78,10 +65,8 @@ contract Ludo {
             // Emit an event to indicate that the player has finished the game
             emit GameFinished(msg.sender);
         } else {
-            // Update the player's position
             playerPositions[msg.sender] = newPosition;
 
-            // Emit an event to indicate that the player has moved
             emit PlayerMoved(msg.sender, newPosition);
         }
     }
